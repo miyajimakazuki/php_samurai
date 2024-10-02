@@ -21,13 +21,13 @@
          $sql = 'CREATE TABLE IF NOT EXISTS samurai (
             id INT(11) NOT NULL AUTO_INCREMENT PRIMARY KEY,
             name VARCHAR(60) NOT NULL,
-            furigana VARCHAR(60) NOT NULL;
+            furigana VARCHAR(60) NOT NULL,
             email VARCHAR(255) NOT NULL,
             age INT(11),
             address VARCHAR(255)
          )';
         //  SQL文の実行
-        $dpo->query($sql);
+        $pdo->query($sql);
          } catch (PDOException $e) {
             exit($e->getMessage());
          }
