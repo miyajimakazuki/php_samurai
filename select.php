@@ -15,12 +15,16 @@
         try {
             $pdo = new PDO($dsn, $user, $password);
             $sql = 'select id, name FROM samurai';
-            $pdo->query($sql);
+            // $pdo->query($sql);
+            $stmt = $pdo->query($sql);
+            $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
+            print_r($results);
         } catch (PDOException $e) {
             exit($e->getMessage());
 
         }
-        echo 'データベースから選びました'
+        
+        echo 'データベースsamuraiからidと名前すべて検索しました';
         ?>
     </p>
 </body>
