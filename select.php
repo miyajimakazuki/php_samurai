@@ -21,6 +21,7 @@ try {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet"  rel="style.css">
     <title>PHP_SAMURAI</title>
 </head>
 <body>
@@ -31,10 +32,18 @@ try {
             <th>メールアドレス</th>
         </tr>
     <?php
-        foreach ($results as $result) {
+        foreach ($results as $i => $result) {
+            // $results[$i]['name'=]
+
+            if($result['name'] == '大坪 ジローラモ')
+        {
+        $results[$i]['is_italian'] = 1;
+        }
             echo "<tr><td>{$result['id']}</td><td>{$result['name']}</td><td>{$result['email']}</td></tr>";
         }
+        print_r($results);
         ?>
+        
     </table>
     
     
