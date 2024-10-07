@@ -5,7 +5,7 @@ $password = 'root';
 
 try {
     $pdo = new PDO($dsn, $user, $password);
-    $sql = 'select id, name, email FROM samurai';
+    $sql = 'SELECT name, furigana FROM samurai';
     // $pdo->query($sql);
     $stmt = $pdo->query($sql);
     $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
@@ -21,30 +21,36 @@ try {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet"  rel="style.css">
+    <link rel="stylesheet"  href="css/style.css">
     <title>PHP_SAMURAI</title>
 </head>
 <body>
+<form method="get" action="select.php" class="search-form">
+        <input type="text" placeholder="ふりがないれて" name="keyword">
+        <input type="submit" value="検索">
+    </form>
+    
     <table>
         <tr>
-            <th>ID</th>
             <th>氏名</th>
-            <th>メールアドレス</th>
+            <th>ふりがな</th>
         </tr>
     <?php
         foreach ($results as $i => $result) {
-            // $results[$i]['name'=]
 
             if($result['name'] == '大坪 ジローラモ')
         {
         $results[$i]['is_italian'] = 1;
         }
-            echo "<tr><td>{$result['id']}</td><td>{$result['name']}</td><td>{$result['email']}</td></tr>";
+            echo "<tr><td>{$result['name']}</td><td>{$result['furigana']}</td></tr>";
         }
-        print_r($results);
+        // print_r($results);
         ?>
         
     </table>
+
+    <button type="submit" name="submit" value="insert"><a href="http://localhost:8888/php_samurai/insert.php">INSERT登録へ</a></button>
+
     
     
 </body>
