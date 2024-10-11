@@ -12,6 +12,17 @@ if (isset($_POST['submit'])) {
         INSERT INTO samurai (name, furigana, email, age, address)
         VALUES (:name, :furigana, :email, :age, :address)
         ';
+
+        // $sql = '
+        //     UPDATE samurai
+        //     SET name = :name,
+        //     furigana = :furigana,
+        //     email = :email,
+        //     age = :age,
+        //     address = :address
+        //     WHERE id =:id
+        // ';
+
         $stmt = $pdo->prepare($sql);
 
         $stmt->bindValue(':name', $_POST['samurai_name'], PDO::PARAM_STR);
@@ -19,6 +30,8 @@ if (isset($_POST['submit'])) {
         $stmt->bindValue(':email', $_POST['samurai_email'], PDO::PARAM_STR);
         $stmt->bindValue(':age', $_POST['samurai_age'], PDO::PARAM_INT);
         $stmt->bindValue(':address', $_POST['samurai_address'], PDO::PARAM_STR);
+        // $stmt->bindValue(':id', $_POST['id'], PDO::PARAM_INT);
+
         
         $stmt->execute();
 
@@ -31,6 +44,8 @@ if (isset($_POST['submit'])) {
 
 }
 // echo 1;
+
+
 
 ?>
 
@@ -45,7 +60,7 @@ if (isset($_POST['submit'])) {
 </head>
 <body>
     <h1>ユーザー登録</h1>
-    <p>ユーザー情報を入力してください。</p>
+    <p>ユーザー情報を入力してください。新規登録するときは<span class="caution">INSERTおす！</span></p>
    
 
     <form method="post" action="insert.php">
@@ -64,8 +79,14 @@ if (isset($_POST['submit'])) {
 
             <label for="samurai_address">住所</label>
             <input type="text" id="samurai_address" name="samurai_address" maxlength="255">
+        </div>
+
+    <div class="button">
+    <button type="submit" name="submit" value="insert">新規登録　INSERT</button>
+
+    <!-- <button type="submit" name="submit" value="update">ユーザー情報更新　UPDATE</button> -->
+
     </div>
-    <button type="submit" name="submit" value="insert">登録</button>
     
     
     </form>

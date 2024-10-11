@@ -43,3 +43,22 @@ form label {
 label span {
     color: red;
 }
+
+button {
+    padding: 10px;
+    margin: auto 20px;
+}
+
+.button {
+    display: block;
+}
+
+.all_column {
+    max-width: 1000px;
+    table-layout: auto;
+  }
+
+.caution {
+    font-weight: bold;
+    color: blueviolet;
+}
