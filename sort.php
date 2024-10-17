@@ -3,37 +3,52 @@ $dsn = 'mysql:dbname=php_db;host=localhost;charset=utf8mb4';
 $user = 'root';
 $password = 'root';
 
-
-
-// 検索窓
+// ソート機能
 try {
     $pdo = new PDO($dsn, $user, $password);
     $sql = 'SELECT * FROM samurai';
     
     $stmt = $pdo->query($sql);
-
-    if (isset($_POST['keyword'])) {
-        $keyword = $_POST['keyword'];
-
+    if (isset($_GET['order'])) {
+        $order = $_GET['order'];
+        
     } else {
-        $keyword = NULL;
+        $order = NULL;
     }
+
+    // if (isset($_POST['keyword'])) {
+    //     $keyword = $_POST['keyword'];
+
+    // } else {
+    //     $keyword = NULL;
+    // }
+    // // 検索窓
+    // $sql = 'SELECT id, name, furigana, email, age, address FROM samurai WHERE furigana LIKE :keyword';
+    // $stmt = $pdo->prepare($sql);
     
-    $sql = 'SELECT id, name, furigana, email, age, address FROM samurai WHERE furigana LIKE :keyword';
-    $stmt = $pdo->prepare($sql);
+    // $partial_match = "%{$keyword}%";
     
-    $partial_match = "%{$keyword}%";
+    // $stmt->bindValue(':keyword', $partial_match, PDO::PARAM_STR);
     
-    $stmt->bindValue(':keyword', $partial_match, PDO::PARAM_STR);
+    // $stmt->execute();
+
+    // $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+
     
-    $stmt->execute();
+    if ($order === 'asc') {
+        $sql = 'SELECT id, name, furigana, email, age, address FROM samurai ORDER BY age ASC';
+    } elseif ($order === 'desc') {
+        $sql = 'SELECT id, name, furigana, email, age, address FROM samurai ORDER BY age DESC';
+    } else {
+        $sql = 'SELECT id, name, furigana, email, age, address FROM samurai ORDER BY id';
+    }
+    $stmt = $pdo->query($sql);
     
-    
+    // SQL文の実行結果を配列で取得する
     $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
-    // print_r($results);
 } catch (PDOException $e) {
     exit($e->getMessage());
-    
 }
 ?>
 
@@ -49,7 +64,7 @@ try {
     <!-- post 検索 -->
     <form method="post" action="select.php" class="search-form">
         <input type="text" placeholder="ふりがないれて" name="keyword">
-        <input type="submit" value="ふりがなで検索(空欄はNULL)">
+        <input type="submit" value="ふりがなで検索">
     </form>
 
     <!-- order ソート -->
